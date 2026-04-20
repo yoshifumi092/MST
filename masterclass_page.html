@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Class｜ご購入手続き</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #f7f5f0;
+    color: #1a1a1a;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .header {
+    background: #0d0d0d;
+    padding: 20px;
+    text-align: center;
+  }
+  .header img { max-width: 200px; }
+  .header-title {
+    color: #fff;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    margin-top: 8px;
+    opacity: 0.7;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+    color: #0d0d0d;
+  }
+  .section-sub {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 32px;
+  }
+  .product-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e0ddd6;
+    margin-bottom: 32px;
+  }
+  .product-header {
+    background: #0d0d0d;
+    color: #fff;
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .product-icon {
+    width: 56px;
+    height: 56px;
+    background: #c9a84c;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .product-icon svg {
+    width: 28px;
+    height: 28px;
+    fill: #fff;
+  }
+  .product-name {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .product-tagline {
+    font-size: 13px;
+    opacity: 0.65;
+    margin-top: 4px;
+  }
+  .product-price-area {
+    padding: 20px 28px;
+    border-bottom: 1px solid #f0ede6;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .price-label { font-size: 13px; color: #888; }
+  .price {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0d0d0d;
+    letter-spacing: -0.02em;
+  }
+  .price-tax { font-size: 13px; color: #888; }
+  .includes-title {
+    padding: 20px 28px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #888;
+    text-transform: uppercase;
+    border-bottom: 1px solid #f0ede6;
+  }
+  .include-item {
+    padding: 18px 28px;
+    border-bottom: 1px solid #f0ede6;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .include-item:last-child { border-bottom: none; }
+  .include-num {
+    width: 28px;
+    height: 28px;
+    background: #c9a84c;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .include-content {}
+  .include-name {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+  .include-desc {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
+  }
+  .step-list {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .step-badge {
+    background: #f5f3ee;
+    border: 1px solid #e0ddd6;
+    border-radius: 4px;
+    font-size: 11px;
+    padding: 3px 8px;
+    color: #555;
+  }
+  .period-bar {
+    background: #f5f3ee;
+    border-radius: 8px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    border: 1px solid #e0ddd6;
+  }
+  .period-label { font-size: 13px; color: #666; }
+  .period-value { font-weight: 700; font-size: 15px; }
+  .payment-section {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e0ddd6;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .payment-header {
+    background: #0d0d0d;
+    color: #fff;
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .payment-body { padding: 24px; }
+  .payment-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0ede6;
+    font-size: 14px;
+  }
+  .payment-row:last-child { border-bottom: none; }
+  .payment-row-label { color: #666; }
+  .payment-row-value { font-weight: 700; }
+  .payment-total {
+    background: #f5f3ee;
+    border-radius: 8px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+  }
+  .total-label { font-size: 13px; color: #666; }
+  .total-price { font-size: 24px; font-weight: 700; color: #0d0d0d; }
+  .btn-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 24px 0;
+  }
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 18px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    letter-spacing: 0.05em;
+  }
+  .btn-credit {
+    background: #3a9fd6;
+    color: #fff;
+  }
+  .btn-bank {
+    background: #e8832a;
+    color: #fff;
+  }
+  .btn-divider {
+    text-align: center;
+    font-size: 13px;
+    color: #999;
+  }
+  .card-icons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .card-icon {
+    background: #f0ede6;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 11px;
+    color: #666;
+    font-weight: 700;
+    border: 1px solid #e0ddd6;
+  }
+  .security-box {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e0ddd6;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    font-size: 12px;
+    color: #666;
+    line-height: 1.8;
+  }
+  .security-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .security-badge {
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+  .disclaimer {
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+    margin-top: 12px;
+    line-height: 1.8;
+  }
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  .footer-links a {
+    font-size: 12px;
+    color: #666;
+    text-decoration: underline;
+  }
+  .copyright {
+    text-align: center;
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 16px;
+  }
+  @media (max-width: 600px) {
+    .product-header { flex-direction: column; gap: 12px; }
+    .price { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div style="color:#c9a84c; font-size:22px; font-weight:700; letter-spacing:0.15em;">MASTER CLASS</div>
+  <div class="header-title">AI動画制作スクール</div>
+</div>
+
+<div class="container">
+
+  <div class="section-title">ご購入手続きに進む</div>
+  <p class="section-sub">注文する商品をご確認いただき、ご希望の決済方法のボタンを押して次にお進みください。</p>
+
+  <!-- 商品カード -->
+  <div class="product-card">
+    <div class="product-header">
+      <div class="product-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15 8v8H5V8h10m1-2H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4V7a1 1 0 0 0-1-1z"/></svg>
+      </div>
+      <div>
+        <div class="product-name">Master Class</div>
+        <div class="product-tagline">AI動画制作スクール（オンライン講座）</div>
+      </div>
+    </div>
+
+    <div class="product-price-area">
+      <span class="price-label">受講料</span>
+      <span class="price">528,000</span>
+      <span class="price-tax">円（税込）</span>
+    </div>
+
+    <div class="includes-title">本商品に含まれる内容</div>
+
+    <div class="include-item">
+      <div class="include-num">1</div>
+      <div class="include-content">
+        <div class="include-name">＜1ヶ月目＞ 基礎講義（全10時間）</div>
+        <div class="include-desc">AI・LLM・Diffusionの仕組みからプロンプト設計、ComfyUI導入まで、動画制作に必要な理論的土台を構築します。</div>
+        <div class="step-list">
+          <span class="step-badge">AIの今</span>
+          <span class="step-badge">LLMとは？</span>
+          <span class="step-badge">Diffusionの本質</span>
+          <span class="step-badge">プロンプト設計</span>
+          <span class="step-badge">ComfyUI導入</span>
+          <span class="step-badge">映像用語の基礎</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="include-item">
+      <div class="include-num">2</div>
+      <div class="include-content">
+        <div class="include-name">＜2ヶ月目＞ 実践講義（全100時間 / 全10セクション）</div>
+        <div class="include-desc">実務に即した5つのSTEPで、クライアントワーク・折衝・納品までを体験する実践型カリキュラムです。</div>
+        <div class="step-list">
+          <span class="step-badge">STEP1｜社内動画制作</span>
+          <span class="step-badge">STEP2｜商品イメージ動画</span>
+          <span class="step-badge">STEP3｜ローンチ・話題設計</span>
+          <span class="step-badge">STEP4｜CI／ビジョン案件</span>
+          <span class="step-badge">STEP5｜製品デモ動画</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="include-item">
+      <div class="include-num">3</div>
+      <div class="include-content">
+        <div class="include-name">グループフィードバック・納品体験</div>
+        <div class="include-desc">実案件に近い環境でのグループフィードバックと、1稿→改稿→最終納品までを一貫して体験できます。</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 提供期間 -->
+  <div class="period-bar">
+    <span class="period-label">サービス提供期間</span>
+    <span class="period-value">3ヶ月間</span>
+  </div>
+
+  <!-- 支払い -->
+  <div class="payment-section">
+    <div class="payment-header">お支払い内容の確認</div>
+    <div class="payment-body">
+      <div class="payment-row">
+        <span class="payment-row-label">商品名</span>
+        <span class="payment-row-value">Master Class（FEコース）</span>
+      </div>
+      <div class="payment-row">
+        <span class="payment-row-label">商品価格</span>
+        <span class="payment-row-value">528,000円（税込）</span>
+      </div>
+      <div class="payment-total">
+        <span class="total-label">お支払い金額</span>
+        <span class="total-price">528,000円</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 決済ボタン -->
+  <div class="payment-section">
+    <div class="payment-header">お支払い方法の選択</div>
+    <div class="payment-body">
+      <div class="card-icons">
+        <span class="card-icon">VISA</span>
+        <span class="card-icon">Master</span>
+        <span class="card-icon">AMEX</span>
+        <span class="card-icon">JCB</span>
+      </div>
+      <div class="btn-wrap" style="margin-top:16px;">
+        <span class="btn btn-credit">クレジットカードで申し込む</span>
+        <div class="btn-divider">または</div>
+        <span class="btn btn-bank">銀行振込で申し込む</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- セキュリティ -->
+  <div class="security-box">
+    <div class="security-title">
+      安全のための取り組み
+      <span class="security-badge">SSL暗号化</span>
+    </div>
+    ご注文者情報はSSL暗号化技術を利用して厳重に送信いたします。ご入力いただいたカード情報は決済代行会社に委託しており、当社では保存されませんのでご安心ください。転売など、当社が不都合と判断した場合はご購入をお断りさせていただくことがございます。予めご了承ください。
+  </div>
+
+  <p class="disclaimer">本商品は、必ずしも購入者様の利益や効果を保証したものではございません。</p>
+
+  <div class="footer-links">
+    <span style="font-size:12px; color:#666;">特定商取引法に基づく表記</span>
+    <span style="font-size:12px; color:#666;">プライバシーポリシー</span>
+  </div>
+
+  <div class="copyright">©2026 マスタークラス株式会社</div>
+
+</div>
+</body>
+</html>
